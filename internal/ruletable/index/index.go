@@ -278,7 +278,7 @@ func (m *Index) Query(version, resource, scope, action string, roles []string, p
 		baseBM = bi.universe
 	case 1:
 		baseBM = dims[0]
-	case 2:
+	case 2: //nolint:mnd
 		baseBM = arena.and2(dims[0], dims[1])
 	default:
 		baseBM = arena.andInto(dims)

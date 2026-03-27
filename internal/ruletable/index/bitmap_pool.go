@@ -27,7 +27,7 @@ var arenaPool = sync.Pool{
 }
 
 func acquireArena() *bitmapArena {
-	return arenaPool.Get().(*bitmapArena)
+	return arenaPool.Get().(*bitmapArena) //nolint:forcetypeassert
 }
 
 func (a *bitmapArena) release() {
@@ -41,7 +41,7 @@ func (a *bitmapArena) release() {
 
 // get returns a cleared bitmap from the pool and tracks it for later release.
 func (a *bitmapArena) get() *roaring.Bitmap {
-	bm := bitmapPool.Get().(*roaring.Bitmap)
+	bm := bitmapPool.Get().(*roaring.Bitmap) //nolint:forcetypeassert
 	a.used = append(a.used, bm)
 	return bm
 }
