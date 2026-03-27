@@ -13,8 +13,7 @@ var bitmapPool = sync.Pool{
 	New: func() any { return roaring.New() },
 }
 
-// emptyBitmap is a shared, immutable empty bitmap returned when a query has no
-// matches. Callers must not mutate it.
+// emptyBitmap is a shared. Callers must not mutate it.
 var emptyBitmap = roaring.New()
 
 // bitmapArena tracks pooled bitmaps acquired during a single query so they can
@@ -47,8 +46,10 @@ func (a *bitmapArena) get() *roaring.Bitmap {
 	return bm
 }
 
-// orInto ORs all parts into a fresh pooled bitmap using in-place Or,
-// avoiding the lazy-OR path (and its run→bitmap container conversions).
+// orInto ORs all parts into a pooled bitmap using in-place Or. This avoids
+// roaring.FastOr's lazy-OR path, which allocates N-1 intermediate array
+// containers that become immediate GC pressure. In-place Or merges directly
+// into the destination's containers, which grow once and are reused.
 func (a *bitmapArena) orInto(parts []*roaring.Bitmap) *roaring.Bitmap {
 	bm := a.get()
 	for _, p := range parts {
