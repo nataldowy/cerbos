@@ -13,7 +13,7 @@ var bitmapPool = sync.Pool{
 	New: func() any { return roaring.New() },
 }
 
-// emptyBitmap is a shared. Callers must not mutate it.
+// emptyBitmap is shared. Callers must not mutate it.
 var emptyBitmap = roaring.New()
 
 // bitmapArena tracks pooled bitmaps acquired during a single query so they can
