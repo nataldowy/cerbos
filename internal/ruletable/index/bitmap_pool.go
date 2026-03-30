@@ -23,7 +23,7 @@ type bitmapArena struct {
 }
 
 func newBitmapArena() *bitmapArena {
-	return &bitmapArena{used: make([]*roaring.Bitmap, 0, 8)}
+	return &bitmapArena{used: make([]*roaring.Bitmap, 0, 8)} //nolint:mnd
 }
 
 func (a *bitmapArena) release() {
