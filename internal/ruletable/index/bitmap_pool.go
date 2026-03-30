@@ -22,12 +22,8 @@ type bitmapArena struct {
 	used []*roaring.Bitmap
 }
 
-var arenaPool = sync.Pool{
-	New: func() any { return &bitmapArena{used: make([]*roaring.Bitmap, 0, 8)} }, //nolint:mnd
-}
-
-func acquireArena() *bitmapArena {
-	return arenaPool.Get().(*bitmapArena) //nolint:forcetypeassert
+func newBitmapArena() *bitmapArena {
+	return &bitmapArena{used: make([]*roaring.Bitmap, 0, 8)}
 }
 
 func (a *bitmapArena) release() {
@@ -35,8 +31,6 @@ func (a *bitmapArena) release() {
 		bm.Clear()
 		bitmapPool.Put(bm)
 	}
-	a.used = a.used[:0]
-	arenaPool.Put(a)
 }
 
 // get returns a cleared bitmap from the pool and tracks it for later release.

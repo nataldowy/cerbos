@@ -204,7 +204,7 @@ func (m *Index) Query(version, resource, scope, action string, roles []string, p
 		return buf
 	}
 
-	arena := acquireArena()
+	arena := newBitmapArena()
 	defer arena.release()
 
 	var scopeBM, versionBM, resourceBM, roleBM, policyKindBM, principalBM *roaring.Bitmap
@@ -461,7 +461,7 @@ func (m *Index) QueryMulti(versions, resources, scopes, roles, actions []string)
 		return nil
 	}
 
-	arena := acquireArena()
+	arena := newBitmapArena()
 	defer arena.release()
 
 	dims := make([]*roaring.Bitmap, 0, 4) //nolint:mnd
@@ -689,7 +689,7 @@ func (m *Index) ScopedResourceExists(version, resource string, scopes []string) 
 		return false, nil
 	}
 
-	arena := acquireArena()
+	arena := newBitmapArena()
 	defer arena.release()
 
 	scopeBM := m.bi.scope.Query(arena, scopes)
@@ -720,7 +720,7 @@ func (m *Index) ScopedPrincipalExists(version string, scopes []string) (bool, er
 		return false, nil
 	}
 
-	arena := acquireArena()
+	arena := newBitmapArena()
 	defer arena.release()
 
 	scopeBM := m.bi.scope.Query(arena, scopes)
