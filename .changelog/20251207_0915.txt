@@ -1,0 +1,3 @@
+fix
+Fix race condition in policy store when concurrent requests modify the same policy
+https://github.com/cerbos/cerbos/issues/2187
