@@ -1,0 +1,2 @@
+feat
+Add support for scoped policy inheritance in resource policies
