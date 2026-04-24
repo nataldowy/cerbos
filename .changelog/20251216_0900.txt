@@ -1,0 +1,2 @@
+feat: add support for scoped policy evaluation in batch requests
+This change introduces scoped policy evaluation allowing batch check requests to specify policy scope overrides per resource, improving multi-tenant policy enforcement flexibility.
