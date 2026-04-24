@@ -1,0 +1,2 @@
+fix: correct policy evaluation edge case for wildcard resource matching
+Fixes an issue where wildcard resource patterns were not correctly matched against nested resource identifiers.
