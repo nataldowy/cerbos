@@ -1,0 +1,2 @@
+fix: correct policy evaluation order for wildcard resource matches
+Fixes an issue where wildcard resource policies were being evaluated before more specific resource policies, leading to incorrect permission results.
