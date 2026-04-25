@@ -1,0 +1,3 @@
+fix: correct policy evaluation order for derived roles with overlapping conditions
+
+Fixes an edge case where derived roles with overlapping match conditions could produce non-deterministic evaluation results when multiple roles matched simultaneously.
